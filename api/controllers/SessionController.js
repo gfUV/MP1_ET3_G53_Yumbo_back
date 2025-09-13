@@ -29,7 +29,7 @@ class SessionController extends GlobalController {
       }
 
       // Login exitoso
-      res.status(200).json({ message: "Login correcto", userId: _id  });
+      res.status(200).json({ message: "Login correcto", userId: "_id" });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Error en el servidor" });

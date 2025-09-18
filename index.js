@@ -77,7 +77,7 @@ app.get("/api/v1/test-email", async (req, res) => {
       service: "Gmail",
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        pass: process.env.SENDGRID_API_KEY,
       },
     });
 

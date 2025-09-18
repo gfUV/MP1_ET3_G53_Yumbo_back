@@ -4,6 +4,7 @@ const cors = require("cors");
 const routes = require("./api/routes/routes.js");
 const { connectDB } = require("./api/config/database");
 const app = express();
+const nodemailer = require("nodemailer");
 
 /**
  * Main Server Application
@@ -69,5 +70,29 @@ if (require.main === module) {
     console.log(`Server running on http://localhost:${PORT}`);
   });
 }
+
+app.get("/api/v1/test-email", async (req, res) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER, // te lo envías a ti mismo para probar
+      subject: "✅ Prueba de servidor Render",
+      text: "Si recibes este correo, tu backend puede enviar emails 🚀",
+    });
+
+    res.json({ message: "Correo enviado", info });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = app;

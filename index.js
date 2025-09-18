@@ -56,6 +56,23 @@ connectDB();
  */
 app.get("/", (req, res) => res.send("Server is running"));
 
+const { sendEmail } = require("./api/services/emailService");
+
+// Endpoint de prueba para verificar el envío de correos
+app.get("/api/v1/test-email", async (req, res) => {
+  try {
+    await sendEmail({
+      to: "gef.val8@gmail.com", // pon tu correo real aquí
+      subject: "Prueba de SendGrid",
+      html: "<h1>¡Funciona!</h1><p>Este es un correo de prueba desde tu backend 🚀</p>",
+    });
+
+    res.json({ message: "Correo enviado correctamente ✅" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 /**
  * Start the Server
  *
@@ -71,28 +88,6 @@ if (require.main === module) {
   });
 }
 
-app.get("/api/v1/test-email", async (req, res) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.SENDGRID_API_KEY,
-      },
-    });
 
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // te lo envías a ti mismo para probar
-      subject: "✅ Prueba de servidor Render",
-      text: "Si recibes este correo, tu backend puede enviar emails 🚀",
-    });
-
-    res.json({ message: "Correo enviado", info });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
 
 module.exports = app;

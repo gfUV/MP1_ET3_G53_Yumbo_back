@@ -1,6 +1,6 @@
 const UserDAO = require("../dao/UserDAO");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
+const { sendEmail } = require("../services/emailService");
 
 /**
  * PasswordController
@@ -26,28 +26,18 @@ class PasswordController {
 
       await user.save();
 
-      // Configurar transporte de nodemailer
-      const transporter = nodemailer.createTransport({
-        service: "Gmail", // puedes usar otro como Outlook, SendGrid, etc.
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      });
-
       const resetUrl = `https://mp1-et-3-g53-yumbo-front.vercel.app/reset_confirm.html?token=${token}`;
 
-      await transporter.sendMail({
-        to: user.email,
-        from: process.env.EMAIL_USER,
-        subject: "Recuperación de contraseña",
-        html: `
+        await sendEmail(
+        user.email,
+        "Recuperación de contraseña",
+        `
           <p>Hola,</p>
           <p>Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace:</p>
           <a href="${resetUrl}">Restablecer contraseña</a>
           <p>Si no solicitaste este cambio, ignora este correo.</p>
-        `,
-      });
+        `
+      );
 
       res.json({ message: "Correo de recuperación enviado" });
     } catch (error) {

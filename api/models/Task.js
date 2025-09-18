@@ -27,6 +27,10 @@ const TaskSchema = new mongoose.Schema(
       enum: ["pendiente", "en-progreso", "completada"], 
       default: "pendiente" 
     },
+      userId: { // 👈 Relación con el usuario que creó la tarea
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    }
   },
   { timestamps: true }
 );

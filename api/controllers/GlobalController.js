@@ -94,6 +94,7 @@ class GlobalController {
    */
   async getAll(req, res) {
     try {
+      const filter = req.query || {}; // 👈 Aquí pasamos filtros de la query
       const documents = await this.dao.getAll();
       res.status(200).json(documents);
     } catch (error) {

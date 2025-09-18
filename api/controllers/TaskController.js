@@ -15,6 +15,22 @@ class TaskController extends GlobalController {
   constructor() {
     super(TaskDAO);
   }
+
+   async getAll(req, res) {
+    try {
+      const { userId } = req.query;
+
+      let filter = {};
+      if (userId) {
+        filter.userId = userId;
+      }
+
+      const tasks = await this.dao.getAll(filter);
+      res.status(200).json(tasks);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = new TaskController();

@@ -2,6 +2,7 @@ const express = require("express");
 const userRoutes = require("./userRoutes");
 const taskRoutes = require("./taskRoutes");
 const sessionRoutes = require("./session");
+const passwordRoutes = require("./passwordRoutes");
 
 const router = express.Router();
 
@@ -25,5 +26,7 @@ router.use("/users", userRoutes);
 router.use("/tasks", taskRoutes);
 
 router.use("/sessions", sessionRoutes);
+
+router.use("/auth", passwordRoutes);
 
 module.exports = router;

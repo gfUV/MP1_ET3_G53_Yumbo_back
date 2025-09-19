@@ -26,12 +26,7 @@ const nodemailer = require("nodemailer");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  cors({
-    origin: ["https://mp1-et-3-g53-yumbo-front.vercel.app",
-    "https://mp-1-et-3-g53-yumbo-front.vercel.app"],
-    credentials: true,
-  })
-);
+  cors({origin: '*'}));
 
 /**
  * Main API Routes

@@ -26,7 +26,7 @@ class PasswordController {
 
       await user.save();
 
-      const resetUrl = `https://mp1-et-3-g53-yumbo-front.vercel.app/reset_confirm.html?token=${token}`;
+      const resetUrl = `https://mp1-et-3-g53-yumbo-front.vercel.app/resetPass_confirm.html?token=${token}`;
 
       console.log("Enviando correo a:", user.email); // 🔹 depuración
 

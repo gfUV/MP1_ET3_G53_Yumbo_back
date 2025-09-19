@@ -56,23 +56,6 @@ connectDB();
  */
 app.get("/", (req, res) => res.send("Server is running"));
 
-const { sendEmail } = require("./api/services/emailService");
-
-// Endpoint de prueba para verificar el envío de correos
-app.get("/api/v1/test-email", async (req, res) => {
-  try {
-    await sendEmail({
-      to: "gef.val8@gmail.com", // pon tu correo real aquí
-      subject: "Prueba de SendGrid",
-      html: "<h1>¡Funciona!</h1><p>Este es un correo de prueba desde tu backend 🚀</p>",
-    });
-
-    res.json({ message: "Correo enviado correctamente ✅" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 /**
  * Start the Server
  *

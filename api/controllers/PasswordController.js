@@ -28,16 +28,18 @@ class PasswordController {
 
       const resetUrl = `https://mp1-et-3-g53-yumbo-front.vercel.app/reset_confirm.html?token=${token}`;
 
-        await sendEmail(
-        user.email,
-        "Recuperación de contraseña",
-        `
+      console.log("Enviando correo a:", user.email); // 🔹 depuración
+
+        await sendEmail({
+        to: user.email,
+        subject: "Recuperación de contraseña",
+        html: `
           <p>Hola,</p>
           <p>Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace:</p>
           <a href="${resetUrl}">Restablecer contraseña</a>
           <p>Si no solicitaste este cambio, ignora este correo.</p>
         `
-      );
+    });
 
       res.json({ message: "Correo de recuperación enviado" });
     } catch (error) {

@@ -4,7 +4,6 @@ const cors = require("cors");
 const routes = require("./api/routes/routes.js");
 const { connectDB } = require("./api/config/database");
 const app = express();
-const nodemailer = require("nodemailer");
 
 /**
  * Main Server Application
@@ -25,8 +24,7 @@ const nodemailer = require("nodemailer");
  */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  cors({origin: '*'}));
+app.use(cors({origin: '*'}));
 
 /**
  * Main API Routes

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 /**
  * User schema for MongoDB using Mongoose.
  * 

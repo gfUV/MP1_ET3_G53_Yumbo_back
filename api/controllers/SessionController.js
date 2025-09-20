@@ -1,4 +1,3 @@
-// api/controllers/SessionController.js
 const GlobalController = require("./GlobalController");
 const UserDAO = require("../dao/UserDAO"); // User Data Access Object
 
